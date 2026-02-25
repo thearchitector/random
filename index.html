@@ -2,8 +2,31 @@
 <html>
   <head></head>
   <body>
-    <audio controls>
-      <source src="katie.mp3" type="audio/mp3">
+    <audio id="audio" controls>
+      <source src="katie.mp3" type="audio/mp3" />
     </audio>
+
+    <form>
+      <!-- Slider is BPM -->
+      <input id="tempo" type="range" value="120" min="12" max="120" step="1" />
+      <p>Tempo <span id="currentTempo">120</span> bpm</p>
+    </form>
+
+    <script>
+      const audio = document.getElementById("audio");
+      const slider = document.getElementById("tempo");
+      const tempoLabel = document.getElementById("currentTempo");
+
+      const BASE_BPM = 120; // playbackRate 1.0 == 120 bpm
+
+      function updateTempo() {
+        const bpm = parseFloat(slider.value);
+        tempoLabel.textContent = Math.round(bpm);
+        audio.playbackRate = bpm / BASE_BPM;
+      }
+
+      slider.addEventListener("input", updateTempo);
+      updateTempo();
+    </script>
   </body>
 </html>
